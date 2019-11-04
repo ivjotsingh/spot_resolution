@@ -37,21 +37,29 @@ func createParkingLot(totalNumberOfCars int) ParkingLot {
 
 }
 
-func (p ParkingLot) getNearestParkingSlot() int {
+func (parkingLot ParkingLot) getNearestParkingSlot() int {
 	var keys []int
 	var emptySlot int
-	for k := range p.slots {
+	for k := range parkingLot.slots {
 		keys = append(keys, k)
 
 	}
 	sort.Ints(keys)
 	for _, k := range keys {
-		if p.slots[k].car == (Car{}) {
+		if parkingLot.slots[k].car == (Car{}) {
 			emptySlot = k
 			break
 		}
 	}
 	return emptySlot
+}
+
+func (parkingLot ParkingLot) parkCar(car Car) {
+	nearestParkingSlot := parkingLot.getNearestParkingSlot()
+	fmt.Println("printing")
+	fmt.Println(parkingLot.slots[nearestParkingSlot].car)
+	parkingLot.slots[nearestParkingSlot].car = Car
+
 }
 
 // func (p ParkingLot) getNearestParkingSlot() int (){
@@ -66,9 +74,9 @@ func (p ParkingLot) getNearestParkingSlot() int {
 
 func main() {
 	totalNumberOfCars := 5
-	parking := createParkingLot(totalNumberOfCars)
-	nearestParkingSlot := parking.getNearestParkingSlot()
-	fmt.Println(nearestParkingSlot)
+	parkingLot := createParkingLot(totalNumberOfCars)
+	fmt.Println(parkingLot)
+	parkingLot.parkCar(Car{})
 }
 
 /*
