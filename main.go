@@ -20,21 +20,6 @@ type parkingLot struct {
 	totalNumberOfCars int
 }
 
-//func (p parkingLot) createParkingSlots()
-/*
-   def create_parking_slots(self, total_parking):
-       self.total_parking = total_parking
-
-       # OrderedDict is being used so that we can avoid expensive sorting operations whenever we want to find the
-       #  nearest empty slot available
-       slots = OrderedDict()
-       for x in range(total_parking):
-           slots[str(x+1)] = Slot(None, x + 1)
-       self.slots = slots
-       return f'Created a parking lot with {total_parking} slots'
-
-
-*/
 func main() {
 
 	car1 := car{"1234", "Red"}
