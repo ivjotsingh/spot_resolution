@@ -13,7 +13,7 @@ type Car struct {
 
 // Slot embedding car with slot
 type Slot struct {
-	car        Car
+	car        map[string]string
 	slotNumber int
 }
 
@@ -30,7 +30,7 @@ func createParkingLot(totalNumberOfCars int) ParkingLot {
 
 	parking.totalNumberOfCars = totalNumberOfCars
 	for i := 1; i <= totalNumberOfCars; i++ {
-		parking.slots[i] = Slot{Car{}, i}
+		parking.slots[i] = Slot{make(map[string]string), i}
 	}
 	fmt.Println("created parking lot with slots: ", totalNumberOfCars)
 	return *parking
@@ -46,7 +46,7 @@ func (parkingLot ParkingLot) getNearestParkingSlot() int {
 	}
 	sort.Ints(keys)
 	for _, k := range keys {
-		if parkingLot.slots[k].car == (Car{}) {
+		if len(parkingLot.slots[k].car) == 0 {
 			emptySlot = k
 			break
 		}
@@ -56,27 +56,17 @@ func (parkingLot ParkingLot) getNearestParkingSlot() int {
 
 func (parkingLot ParkingLot) parkCar(car Car) {
 	nearestParkingSlot := parkingLot.getNearestParkingSlot()
-	fmt.Println("printing")
-	fmt.Println(parkingLot.slots[nearestParkingSlot].car)
-	parkingLot.slots[nearestParkingSlot].car = Car
+	parkingLot.slots[nearestParkingSlot].car[car.registerationNumber] = car.color
 
 }
-
-// func (p ParkingLot) getNearestParkingSlot() int (){
-// 	var keys []int
-// 	for k := range p.slots {
-//         keys = append(keys, k)
-// 	}
-// 	sort.Ints(keys)
-
-// 	return 1
-// }
 
 func main() {
 	totalNumberOfCars := 5
 	parkingLot := createParkingLot(totalNumberOfCars)
 	fmt.Println(parkingLot)
-	parkingLot.parkCar(Car{})
+	parkingLot.parkCar(Car{registerationNumber: "1234", color: "Red"})
+	parkingLot.parkCar(Car{registerationNumber: "2345", color: "Green"})
+	fmt.Println(parkingLot)
 }
 
 /*
