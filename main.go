@@ -54,6 +54,29 @@ func (parkingLot ParkingLot) getNearestParkingSlot() int {
 	return emptySlot
 }
 
+/*
+    def free_slot(self, slot_number):
+        if not self.is_parking_lot_functional():
+            return parking_lot_not_functional
+
+        try:
+            slot = self.slots[str(slot_number)]
+            if slot.car:
+                self.registration_numbers_of_cars_parked.remove(slot.car.registration_number)
+                slot.car = None
+                return f'Slot number {slot_number} is free'
+            else:
+                return f'Slot number {slot_number} was already free'
+        except KeyError:
+			return f'Slot number {slot_number} does not exist in the parking lot'
+*/
+
+func (parkingLot ParkingLot) freeSlot(slotNumber int) {
+	fmt.Println(parkingLot.slots[slotNumber])
+	parkingLot.slots[slotNumber] = Slot{make(map[string]string), slotNumber}
+	fmt.Println(parkingLot.slots[slotNumber])
+}
+
 func (parkingLot ParkingLot) parkCar(car Car) {
 	nearestParkingSlot := parkingLot.getNearestParkingSlot()
 	parkingLot.slots[nearestParkingSlot].car[car.registerationNumber] = car.color
@@ -66,6 +89,10 @@ func main() {
 	fmt.Println(parkingLot)
 	parkingLot.parkCar(Car{registerationNumber: "1234", color: "Red"})
 	parkingLot.parkCar(Car{registerationNumber: "2345", color: "Green"})
+	fmt.Println(parkingLot)
+	parkingLot.freeSlot(1)
+	fmt.Println(parkingLot)
+	parkingLot.parkCar(Car{registerationNumber: "5345", color: "Green"})
 	fmt.Println(parkingLot)
 }
 
